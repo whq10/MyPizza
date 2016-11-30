@@ -35,11 +35,24 @@ class NewCustomerViewController: UIViewController {
         let telephone = textField_telephone.text!;
         let points = textField_points.text!;
         
-        let birthday = datePicker_birthday.date.description;
+        let birthday_date = datePicker_birthday.date;
         
-        let url = NSURL(string: "http://192.168.0.17/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday
-        );
-         _ = NSData(contentsOf: url as! URL)
+        let dateformatter = DateFormatter()
+        
+        dateformatter.dateFormat = "MM/dd/yy"
+        
+        let birthday = dateformatter.string(from: birthday_date)
+        
+        
+        var testUrl = NSURL(string:"http://192.168.0.17/newCustomerService.php?birthday="+birthday);
+        
+        
+        var myUrl = NSURL(string:"http://192.168.0.17/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday);
+        
+        
+        //let url = NSURL(string: "http://192.168.0.17/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday
+        //);
+         _ = NSData(contentsOf: myUrl as! URL)
         //self.dismiss(animated: true, completion:{NSLog("Close window")});
 
         

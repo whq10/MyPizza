@@ -59,6 +59,14 @@ class DetailViewController: UIViewController {
             svc.toPass_points = label_points.text
             
         }
+        else if (segue.identifier == "segue_detail_edit_customer")
+        {
+            var svc = segue.destination as! EditCustomerViewController;
+            
+            svc.toPass_id = label_id.text
+
+            
+        }
         
     }
     
