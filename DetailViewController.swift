@@ -67,6 +67,14 @@ class DetailViewController: UIViewController {
 
             
         }
+        else if (segue.identifier == "segue_to_redeem")
+        {
+            var svc = segue.destination as! MyTableViewController;
+            
+            svc.toPass_id = label_id.text
+            
+            
+        }
         
     }
     
