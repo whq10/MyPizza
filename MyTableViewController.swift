@@ -20,7 +20,9 @@ class MyTableViewController: UITableViewController {
     
     func get()
     {
-        let url = NSURL(string: "http://192.168.0.17/service.php?id="+toPass_id)
+        //let url = NSURL(string: "http://192.168.0.17/service.php?id="+toPass_id)
+        let url = NSURL(string: "https://synctech.000webhostapp.com/service.php?id="+toPass_id)
+        
         let data = NSData(contentsOf: url as! URL)
         let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
         
@@ -36,7 +38,10 @@ class MyTableViewController: UITableViewController {
         for i in 0...count-1
         {
             var redeemId: String = idArr[i]
-            let url_1 = NSURL(string: "http://192.168.0.17/redeemService.php?RedeemId="+redeemId)
+            //let url_1 = NSURL(string: "http://192.168.0.17/redeemService.php?RedeemId="+redeemId)
+            
+            let url_1 = NSURL(string: "https://synctech.000webhostapp.com/redeemService.php?RedeemId="+redeemId)
+            
             let data_1 = NSData(contentsOf: url_1 as! URL)
             
             let values_1 = try! JSONSerialization.jsonObject(with: data_1! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
@@ -109,7 +114,9 @@ class MyTableViewController: UITableViewController {
         var updatedPoints = currentPoints - itemPoints;
         var tempStr = String(updatedPoints)
 
-        let url = NSURL(string: "http://192.168.0.17/updatePointsService.php?customer_id="+toPass_id+"&points="+tempStr)
+        //let url = NSURL(string: "http://192.168.0.17/updatePointsService.php?customer_id="+toPass_id+"&points="+tempStr)
+        let url = NSURL(string: "https://synctech.000webhostapp.com/updatePointsService.php?customer_id="+toPass_id+"&points="+tempStr)
+        
         let data = NSData(contentsOf: url as! URL)
         
         //let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary

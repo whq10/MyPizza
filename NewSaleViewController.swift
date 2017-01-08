@@ -37,7 +37,7 @@ class NewSaleViewController: UIViewController {
         var b = Int(toPass_points);
         var newPoints = a! * 100 + b!;
         var str_newPoints = String(newPoints);
-        let url = NSURL(string: "http://192.168.0.17/newBillService.php?id="+toPass_id+"&points="+str_newPoints)
+        let url = NSURL(string: "https://synctech.000webhostapp.com/newBillService.php?id="+toPass_id+"&points="+str_newPoints)
         let data = NSData(contentsOf: url as! URL)
         //let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
         label_availabel_points.text = str_newPoints;
@@ -50,11 +50,12 @@ class NewSaleViewController: UIViewController {
     {
         var a = Int(consumedTextField.text!);
         var b = Int(toPass_points);
+        
+        
         var newPoints = a! * 100 + b!;
         var str_newPoints = String(newPoints);
-        let url = NSURL(string: "http://192.168.0.17/newBillService.php?id="+toPass_id+"&points="+str_newPoints)
+        let url = NSURL(string: "https://synctech.000webhostapp.com/newBillService.php?id="+toPass_id+"&points="+str_newPoints)
         let data = NSData(contentsOf: url as! URL)
-        //let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
         label_availabel_points.text = str_newPoints;
         
     }

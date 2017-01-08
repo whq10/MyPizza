@@ -33,7 +33,9 @@ class EditCustomerViewController: UIViewController {
     
     func get()
     {
-        let url = NSURL(string: "http://192.168.0.17/service.php?id="+toPass_id)
+        //let url = NSURL(string: "http://192.168.0.17/service.php?id="+toPass_id)
+        let url = NSURL(string: "https://synctech.000webhostapp.com/service.php?id="+toPass_id)
+        
         let data = NSData(contentsOf: url as! URL)
         let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
         
@@ -52,8 +54,22 @@ class EditCustomerViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         //dateFormatter.dateStyle = DateFormatter.Style
-        let dateObj = dateFormatter.date(from: birthday! as! String)
-        datePicker_birthday.date = dateObj!
+        
+        //bruce test
+        
+        var str = birthday! as! String;
+        var dateObj = dateFormatter.date(from: birthday! as! String)
+        if(dateObj == nil)
+        {
+            let dateFormatter_1 = DateFormatter()
+            dateFormatter_1.dateFormat = "yyyy-MM-dd"
+            let dateObj_1 = dateFormatter_1.date(from: str)
+            dateObj = dateObj_1
+        }
+
+        
+            datePicker_birthday.date = dateObj!
+            
         
     }
     
@@ -76,7 +92,7 @@ class EditCustomerViewController: UIViewController {
         
         if(toPass_id != textField_id.text)
         {
-            var myUrl = NSURL(string:"http://192.168.0.17/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday);
+            var myUrl = NSURL(string:"https://synctech.000webhostapp.com/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday);
             
             _ = NSData(contentsOf: myUrl as! URL)
 
@@ -84,7 +100,7 @@ class EditCustomerViewController: UIViewController {
         }
         else
         {
-            var myUrl = NSURL(string:"http://192.168.0.17/updateCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday);
+            var myUrl = NSURL(string:"https://synctech.000webhostapp.com/updateCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday);
             
             _ = NSData(contentsOf: myUrl as! URL)
 

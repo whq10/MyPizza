@@ -44,10 +44,10 @@ class NewCustomerViewController: UIViewController {
         let birthday = dateformatter.string(from: birthday_date)
         
         
-        var testUrl = NSURL(string:"http://192.168.0.17/newCustomerService.php?birthday="+birthday);
+        var testUrl = NSURL(string:"https://synctech.000webhostapp.com/newCustomerService.php?birthday="+birthday);
         
         
-        var myUrl = NSURL(string:"http://192.168.0.17/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday);
+        var myUrl = NSURL(string:"https://synctech.000webhostapp.com/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday);
         
         
         //let url = NSURL(string: "http://192.168.0.17/newCustomerService.php?customer_id="+customer_id+"&postcode="+postcode+"&email="+email+"&telephone="+telephone+"&points="+points+"&birthday="+birthday
