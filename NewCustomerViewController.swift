@@ -18,6 +18,12 @@ class NewCustomerViewController: UIViewController {
     @IBOutlet weak var datePicker_birthday: UIDatePicker!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.textField_customerId.keyboardType = UIKeyboardType.numberPad
+        self.textField_telephone.keyboardType = UIKeyboardType.phonePad
+        self.textField_email.keyboardType = UIKeyboardType.emailAddress
+        self.textField_points.keyboardType = UIKeyboardType.decimalPad
+        
 
         // Do any additional setup after loading the view.
     }

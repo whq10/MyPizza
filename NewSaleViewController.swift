@@ -18,6 +18,7 @@ class NewSaleViewController: UIViewController {
     @IBOutlet weak var consumedTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.consumedTextField.keyboardType = UIKeyboardType.numberPad
 
         // Do any additional setup after loading the view.
     }
@@ -57,6 +58,10 @@ class NewSaleViewController: UIViewController {
         let url = NSURL(string: "https://synctech.000webhostapp.com/newBillService.php?id="+toPass_id+"&points="+str_newPoints)
         let data = NSData(contentsOf: url as! URL)
         label_availabel_points.text = str_newPoints;
+        
+        //Update redeem items
+        let url_1 = NSURL(string: "https://synctech.000webhostapp.com/updatePointsService.php?id="+toPass_id+"&points="+str_newPoints)
+        let data_1 = NSData(contentsOf: url_1 as! URL)
         
     }
     

@@ -65,7 +65,37 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
         
         let url = NSURL(string: "https://synctech.000webhostapp.com/service.php?id="+toPass)
         let data = NSData(contentsOf: url as! URL)
-        
+        if(data != nil)
+        {
+            if (data?.length != 0)
+            {
+                let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                
+                let telephone = values["tel"]
+                let id = values["id"]
+                let postcode = values["postcode"]
+                let email = values["email"]
+                let points = values["points"]
+                label_id.text = id as! String
+                label_telephone.text = telephone as! String
+                label_postcode.text = postcode as! String
+                label_email.text = email as! String
+                label_points.text = points as! String
+                
+                return true;
+            }
+            else
+            {
+                
+                let alert = UIAlertController(title: "Warning", message: "No customer ID found, Please verify.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return false
+            }
+            
+        }
+        return true
+        /*
         if (data?.length != 0)
         {
         let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
@@ -90,17 +120,9 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return false
-            /*
-            let alert = UIAlertController(title: "Warning", message: "No customer ID found, Please verify.", preferredStyle: UIAlertControllerStyle.alert)
-            let callActionHandler = { (action:UIAlertAction!) -> Void in
-                let alertMessage = UIAlertController(title: "Service Unavailable", message: "Sorry, the call feature is not available yet. Please retry later.", preferredStyle: UIAlertControllerStyle.alert)
-                alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertMessage, animated: true, completion: nil)
-            }
-            let callAction = UIAlertAction(title: "Call", style: .default, handler: callActionHandler)
-            alert.addAction(callAction)
-            */
         }
+        */
+        
         
         
         
@@ -154,32 +176,51 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
         let url = NSURL(string: "https://synctech.000webhostapp.com/service.php?id="+toPass)
         
         let data = NSData(contentsOf: url as! URL)
-        let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
         
-        let points = values["points"]
-        
-        var temp = points as! String
-        currentPoints = Int(temp)
-        
-        var redeem_ids = values["redeem"] as! String
-        
-        let idArr = redeem_ids.components(separatedBy: "_")
-        let count = idArr.count
-        for i in 0...count-1
+        if(data != nil)
         {
-            var redeemId: String = idArr[i]
-            //let url_1 = NSURL(string: "http://192.168.0.17/redeemService.php?RedeemId="+redeemId)
-            let url_1 = NSURL(string: "https://synctech.000webhostapp.com/redeemService.php?RedeemId="+redeemId)
+            let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
             
-            let data_1 = NSData(contentsOf: url_1 as! URL)
+            let points = values["points"]
             
-            let values_1 = try! JSONSerialization.jsonObject(with: data_1! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-            let redeemName = values_1["RedeemName"] as! String
-            let redeemPoints = values_1["RedeemPoints"] as! String
-            displayName = redeemName+"_"+redeemPoints
-            items.append(displayName)
+            var temp = points as! String
+            currentPoints = Int(temp)
+            
+            var redeem_ids = values["redeem"] as! String
+            
+            let idArr = redeem_ids.components(separatedBy: "_")
+            let count = idArr.count
+            items.removeAll()
+            for i in 0...count-1
+            {
+                var redeemId: String = idArr[i]
+                //let url_1 = NSURL(string: "http://192.168.0.17/redeemService.php?RedeemId="+redeemId)
+                let url_1 = NSURL(string: "https://synctech.000webhostapp.com/redeemService.php?RedeemId="+redeemId)
+                
+                let data_1 = NSData(contentsOf: url_1 as! URL)
+                
+                if(data_1 != nil)
+                {
+                    let values_1 = try! JSONSerialization.jsonObject(with: data_1! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                    let redeemName = values_1["RedeemName"] as! String
+                    let redeemPoints = values_1["RedeemPoints"] as! String
+                    displayName = redeemName+"_"+redeemPoints
+                    if(redeemPoints != "0")
+                    {
+                        items.append(displayName)
+                    }
+                    
+                }
+                
+                
+            }
+            
+            
         }
         
+        //myTableView_1.beginUpdates()
+        //myTableView_1.endUpdates()
+        self.myTableView_1.reloadData()
         
     }
     
@@ -243,6 +284,14 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
         label_points.text = tempStr
         
         //self.dismiss(animated: true, completion:{NSLog("Close window")});
+        
+        //Update redeem items
+        let url_1 = NSURL(string: "https://synctech.000webhostapp.com/updatePointsService.php?id="+toPass+"&points="+tempStr)
+        let data_1 = NSData(contentsOf: url_1 as! URL)
+        getredeem()
+        
+        
+
     }
     
     func myCancel()

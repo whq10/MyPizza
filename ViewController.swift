@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField_customerId: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.textField_customerId.keyboardType = UIKeyboardType.numberPad
         // Do any additional setup after loading the view, typically from a nib.
     }
 
