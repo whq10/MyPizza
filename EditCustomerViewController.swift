@@ -22,8 +22,10 @@ class EditCustomerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         get()
+        
 
         // Do any additional setup after loading the view.
+        //assignbackground()
     }
 
     override func didReceiveMemoryWarning() {
@@ -138,5 +140,17 @@ class EditCustomerViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func assignbackground(){
+        let background = UIImage(named: "background")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIViewContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubview(toBack: imageView)
+    }
 
 }

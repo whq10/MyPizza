@@ -16,6 +16,8 @@ class ViewController: UIViewController {
         
         self.textField_customerId.keyboardType = UIKeyboardType.numberPad
         // Do any additional setup after loading the view, typically from a nib.
+        
+        assignbackground()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,6 +34,19 @@ class ViewController: UIViewController {
             print(textField_customerId.text)
             
         }
+    }
+    
+    func assignbackground(){
+        let background = UIImage(named: "background")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIViewContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubview(toBack: imageView)
     }
 
 

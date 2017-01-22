@@ -51,6 +51,7 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
 
 
         // Do any additional setup after loading the view.
+        //assignbackground()
     }
 
     override func didReceiveMemoryWarning() {
@@ -298,6 +299,19 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
     {
         print("cancel pressed")
         self.dismiss(animated: true, completion:{NSLog("Close window")});
+    }
+    
+    func assignbackground(){
+        let background = UIImage(named: "background")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIViewContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubview(toBack: imageView)
     }
 
 

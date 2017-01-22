@@ -26,6 +26,7 @@ class NewCustomerViewController: UIViewController {
         
 
         // Do any additional setup after loading the view.
+        //assignbackground()
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,6 +61,10 @@ class NewCustomerViewController: UIViewController {
         //);
          _ = NSData(contentsOf: myUrl as! URL)
         //self.dismiss(animated: true, completion:{NSLog("Close window")});
+        
+        //Update redeem items
+        let url_1 = NSURL(string: "https://synctech.000webhostapp.com/updatePointsService.php?id="+customer_id+"&points="+points)
+        let data_1 = NSData(contentsOf: url_1 as! URL)
 
         
     }
@@ -88,5 +93,17 @@ class NewCustomerViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func assignbackground(){
+        let background = UIImage(named: "background")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIViewContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubview(toBack: imageView)
+    }
 
 }

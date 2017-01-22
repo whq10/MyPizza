@@ -59,6 +59,8 @@ class MyTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableview.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         get()
+        
+        //assignbackground()
 
     }
 
@@ -187,5 +189,17 @@ class MyTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func assignbackground(){
+        let background = UIImage(named: "background")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIViewContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubview(toBack: imageView)
+    }
 
 }
