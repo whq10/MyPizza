@@ -195,6 +195,8 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
             for i in 0...count-1
             {
                 var redeemId: String = idArr[i]
+                if(redeemId != "")
+                {
                 //let url_1 = NSURL(string: "http://192.168.0.17/redeemService.php?RedeemId="+redeemId)
                 let url_1 = NSURL(string: "https://synctech.000webhostapp.com/redeemService.php?RedeemId="+redeemId)
                 
@@ -211,6 +213,7 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
                         items.append(displayName)
                     }
                     
+                }
                 }
                 
                 
