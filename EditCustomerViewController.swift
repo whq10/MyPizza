@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditCustomerViewController: UIViewController {
+class EditCustomerViewController: UIViewController, UITextFieldDelegate {
     
     var toPass_id:String!
 
@@ -21,6 +21,8 @@ class EditCustomerViewController: UIViewController {
     @IBOutlet weak var textField_id: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        textField_id.delegate = self
+        textField_telephone.delegate = self
         get()
         
 
@@ -151,6 +153,13 @@ class EditCustomerViewController: UIViewController {
         imageView.center = view.center
         view.addSubview(imageView)
         self.view.sendSubview(toBack: imageView)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
     }
 
 }

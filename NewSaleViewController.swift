@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewSaleViewController: UIViewController {
+class NewSaleViewController: UIViewController , UITextFieldDelegate{
 
     
     var toPass_id:String!
@@ -20,6 +20,7 @@ class NewSaleViewController: UIViewController {
         super.viewDidLoad()
         self.consumedTextField.keyboardType = UIKeyboardType.numberPad
 
+        consumedTextField.delegate = self
         // Do any additional setup after loading the view.
         //assignbackground()
     }
@@ -101,6 +102,13 @@ class NewSaleViewController: UIViewController {
         imageView.center = view.center
         view.addSubview(imageView)
         self.view.sendSubview(toBack: imageView)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
     }
 
 }

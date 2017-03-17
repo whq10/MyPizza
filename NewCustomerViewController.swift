@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewCustomerViewController: UIViewController {
+class NewCustomerViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var textField_customerId: UITextField!
     @IBOutlet weak var textField_telephone: UITextField!
@@ -25,6 +25,8 @@ class NewCustomerViewController: UIViewController {
         self.textField_points.keyboardType = UIKeyboardType.decimalPad
         
 
+        textField_customerId.delegate = self
+        textField_telephone.delegate = self
         // Do any additional setup after loading the view.
         //assignbackground()
     }
@@ -104,6 +106,13 @@ class NewCustomerViewController: UIViewController {
         imageView.center = view.center
         view.addSubview(imageView)
         self.view.sendSubview(toBack: imageView)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
     }
 
 }

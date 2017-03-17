@@ -88,8 +88,9 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
             else
             {
                 
+                
                 let alert = UIAlertController(title: "Warning", message: "No customer ID found, Please verify.", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return false
             }
@@ -269,10 +270,75 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
         
     }
     
+    
+    //bruce test
+    func verify(title: String, message: String) -> Bool
+    {
+        
+        let date = NSDate()
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: date as Date)
+        
+        let year = components.year
+        let month = components.month
+        let day = components.day
+        var currentDate = "\(year)" + "\(month)" + "\(day)"
+        
+        
+        var result = true
+        let url = NSURL(string: "https://synctech.000webhostapp.com/constraintService.php?id="+toPass)
+        let data = NSData(contentsOf: url as! URL)
+        if(data != nil)
+        {
+            if (data?.length != 0)
+            {
+                let values = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                
+                let myDate = values["redeemDate"] as! String
+                
+                if(myDate == currentDate)
+                {
+                    result = false
+                    
+                }
+                else
+                {
+                    result = true
+                }
+            }
+        }
+
+        
+        
+        if(!result)
+        {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {action in self.myOK()}))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+        return result
+ 
+
+    }
+    
+    func myOK()
+    {
+        //self.dismiss(animated: true, completion:{NSLog("Close window")});
+        viewDidLoad()
+    }
+    
     func myContinue()
     {
+        var result = false
+        result = verify(title: "Warning", message: "You cannot redeem more than once a day!")
+        
+        if(result)
+        {
+        
         let tempArr = displayName.components(separatedBy: "_")
-        itemPoints = Int(tempArr[1])
+        let index = tempArr.count;
+        itemPoints = Int(tempArr[index - 1])
         
         var updatedPoints = currentPoints - itemPoints;
         var tempStr = String(updatedPoints)
@@ -293,6 +359,24 @@ class DetailViewController: UIViewController , UITableViewDelegate, UITableViewD
         let url_1 = NSURL(string: "https://synctech.000webhostapp.com/updatePointsService.php?id="+toPass+"&points="+tempStr)
         let data_1 = NSData(contentsOf: url_1 as! URL)
         getredeem()
+            
+        //Update redeem constraint
+        let date = NSDate()
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: date as Date)
+            
+        let year = components.year
+        let month = components.month
+        let day = components.day
+        var currentDate = "\(year)" + "\(month)" + "\(day)"
+
+        let url_2 = NSURL(string: "https://synctech.000webhostapp.com/updateRedeemConstraintService.php?id="+toPass+"&redeemDate="+currentDate)
+        
+            
+        let data_2 = NSData(contentsOf: url_2 as! URL)
+
+        }
+
         
         
 
