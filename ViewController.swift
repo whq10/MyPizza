@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  MyPizza
 //
-//  Created by Bruce on 16/11/26.
-//  Copyright © 2016年 Bruce. All rights reserved.
+//  Created by YTT on 16/11/26.
+//  Copyright © 2016年 YTT. All rights reserved.
 //
 
 import UIKit
